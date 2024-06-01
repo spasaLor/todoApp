@@ -40,3 +40,41 @@ export function addTask(){
     localStorage.setItem(proj,JSON.stringify(p));
     form.reset();
 }
+
+export function editTask(oldTaskName){
+    const dial=document.querySelector('.dial');
+    const cont=document.querySelector('.container');
+    let form=document.querySelector('form');
+    let res=Array.from(form.elements);
+    let name= res[0].value;
+    let proj= res[1].value;
+    let desc= res[2].value;
+    let date= res[3].value;
+    let prio= res[4].value;
+
+    let p = localStorage.getItem(proj);
+    p = JSON.parse(p);
+
+    // Parse the taskList
+    let tl = p.taskList;
+
+    // Iterate over the taskList to find and update the specific task
+    for (let i = 0; i < tl.length; i++) {
+        let taskObj = JSON.parse(tl[i]);
+        if (taskObj.title === oldTaskName) {
+            taskObj.title = name;
+            taskObj.description = desc;
+            taskObj.priority = prio;
+            taskObj.date = date;
+            
+            // Update the task in the taskList
+            tl[i] = JSON.stringify(taskObj);
+            
+            // Save the updated project back to localStorage
+            p.taskList = tl;
+            localStorage.setItem(proj, JSON.stringify(p));
+        }
+    }
+    cont.innerHTML='';
+    dial.close();
+}

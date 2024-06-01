@@ -1,5 +1,5 @@
 import {nuovoProgetto} from './project.js';
-import {addTask} from './task.js';
+import {addTask,editTask} from './task.js';
 import { formatDate,isToday,isAfter,isBefore } from 'date-fns';
 
 export function addNewProjectContent(){
@@ -202,6 +202,88 @@ function removeProject(e){
     }
     updateProjects();
 }
+
+function inspectTask(e){
+    const name=e.currentTarget.querySelector('.upper .left h3').textContent;
+    const priority= e.currentTarget.querySelector('.upper .left span').style.color;
+    const info=e.currentTarget.querySelectorAll('p');
+
+    const dial=document.querySelector('.dial');
+    dial.innerHTML='';
+    const wra=document.createElement('div');
+    wra.classList.add('wrapper');
+    const modCont=document.createElement('div');
+    modCont.classList.add('modal-container');
+    const h3=document.createElement('h3');
+    h3.textContent='Edit Task';
+    modCont.appendChild(h3);
+    const form=document.createElement('form');
+    form.action='#';
+    const in1=document.createElement('input');
+    in1.type='text';
+    in1.value=name;
+    in1.classList.add('task-name');
+    form.appendChild(in1);
+    const sel2=document.createElement('select');
+    sel2.id='task-sel';
+    sel2.name='task-sel';
+    for(let i =0;i<localStorage.length;i++){
+        let opt=document.createElement('option');
+            opt.value=localStorage.key(i);
+            opt.text=localStorage.key(i);
+            if(document.querySelector('h1').textContent === localStorage.key(i)){
+                opt.selected=true;
+            }
+            sel2.appendChild(opt);
+    }
+    form.appendChild(sel2);
+    const in2=document.createElement('input');
+    in2.type='text';
+    in2.classList.add('task-desc');
+    in2.value=info[0].textContent;
+    form.appendChild(in2);
+    const in3=document.createElement('input');
+    in3.type='date';
+    in3.classList.add('task-date');
+    form.appendChild(in3);
+    const sel=document.createElement('select');
+    sel.id='task-prio';
+    sel.name='task-prio';
+    const opt=document.createElement('option');
+    opt.value='high';
+    opt.text='High';
+    const opt2=document.createElement('option');
+    opt2.value='med';
+    opt2.text='Medium';
+    const opt3=document.createElement('option');
+    opt3.value='low';
+    opt3.text='Low';
+    switch (priority) {
+        case "red":
+            opt.selected=true;
+            break;
+        case "yellow":
+            opt2.selected=true;
+            break;
+        default:
+            opt3.selected=true;
+            break;
+    }
+    sel.append(opt,opt2,opt3);
+    form.appendChild(sel);
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.textContent='Edit';
+    btn.addEventListener('click',function(){
+        editTask(name);
+    });
+    form.appendChild(btn);
+    modCont.appendChild(form);
+    wra.appendChild(modCont);
+    dial.appendChild(wra);
+    dial.showModal();
+}
+
 export function viewTasks(e){
     const key=e.currentTarget.querySelector('p').textContent;
     let proj=localStorage.getItem(key);
@@ -219,6 +301,7 @@ export function viewTasks(e){
     for(let i=0;i<proj["taskList"].length;i++){
         let task=JSON.parse(proj["taskList"][i]);
         let li=document.createElement('li');
+        li.addEventListener('click',inspectTask);
         let upper=document.createElement('div');
         upper.classList.add('upper');
         let left=document.createElement('div');
@@ -260,11 +343,21 @@ export function viewTasks(e){
         let p1=document.createElement('p');
         p1.innerText=task["description"];
         li.appendChild(p1);
+        const di=document.createElement('div');
+        di.style.display='flex';
+        di.style.alignItems='center';
         let p2=document.createElement('p');
+        let p3=document.createElement('p');
+        p3.innerText='Due: ';
+        p3.style.marginBottom=0;
         let date=new Date(task["dueDate"]);
         let d= formatDate(date,"do MMM y");
-        p2.innerText="Due: "+d;
-        li.appendChild(p2);
+        p2.innerText=d;
+        p2.style.marginLeft='5px';
+        p2.style.marginBottom=0;
+
+        di.append(p3,p2);
+        li.appendChild(di);
         ol.appendChild(li);
     }
     taskIt.appendChild(ol);
