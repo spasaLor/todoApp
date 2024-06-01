@@ -1,0 +1,186 @@
+h1,h2,h3,p{
+    margin: 0;
+}
+body{
+    margin:0;
+    font-size:18px;
+    font-family: 'Roboto';
+}
+header{
+    height:10vh;
+    width: 100%;
+}
+label{
+    font-weight: 300;
+}
+.logo{
+    height: 100%;
+    background-color: darkslategray;
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 0px 5px;
+    color: white;
+    font-family: 'Poetsen-One',sans-serif;
+}
+.logo span{
+    font-size: 29px;
+}
+.sidebar{
+    grid-column: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    background-color: cadetblue;
+    padding-left: 10px;
+    border-radius: 0px 10px;
+}
+.tasks h3, .projects h3, .upper h3{
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: rgba(0,0,0,0.8);
+    margin-top:5px;
+    margin-bottom: 10px;
+}
+.project-item{
+    display: flex;
+    gap:10px;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+.sidebar .tasks .add-task, .sidebar .tasks .due-item, #create-project{
+    display: flex;
+    gap:10px;
+    align-items: center;
+    text-transform: capitalize;
+    cursor: pointer;
+    height: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+.add-task, #create-project{
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar .due{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+#del{
+    margin-left: auto;
+    margin-right: 20px;
+}
+.add-task:hover, .due-item:hover, #create-project:hover, .project-item:hover{
+    background-color: rgb(9, 128, 108);
+}
+
+main{
+    background-color: teal;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    height: 90vh;
+}
+main .container{
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+}
+.new-project, .task-content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.new-project h1, .task-content h1{
+    margin: 20px 0px;
+}
+.new-project form, .task-content form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:20px;
+    flex-wrap: wrap;
+    width: 30em;
+    max-width: 90%;
+    margin: 0 auto;
+}
+form .form-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+button{
+    width: 200px;
+    height: 40px;
+    color: teal;
+    background-color: white;
+    border: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+select{
+    width: 230px;
+    height: 35px;
+}
+.new-project input, .task-content input{
+    height: 28px;
+    font-size: 18px;
+    padding-left: 5px;
+}
+#date-task{
+    width: 220px;
+}
+
+.task-content:last-child button{
+    margin-top:22px;
+}
+.tasks-content {
+    display: flex;
+    flex-direction: column;
+    width:60vw;
+}
+.tasks-content h1{
+    text-align: center;
+    text-transform: capitalize;
+}
+.task-items li{
+    margin-bottom: 20px;
+    list-style-type: none;
+    padding: 0px 20px;
+    background-color: beige;
+    border-radius: 10px;
+    padding:5px;
+    box-shadow: 2px 5px 2px gray;
+}
+.task-items .upper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+li .upper .left{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+li .upper .right{
+    display: flex;
+    align-items: center;
+}
+.upper h3{
+    font-size: 1em;
+    margin: 0px;
+}
+.task-items li p{
+    margin-left: 33px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
