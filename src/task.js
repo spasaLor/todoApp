@@ -55,10 +55,8 @@ export function editTask(oldTaskName){
     let p = localStorage.getItem(proj);
     p = JSON.parse(p);
 
-    // Parse the taskList
     let tl = p.taskList;
 
-    // Iterate over the taskList to find and update the specific task
     for (let i = 0; i < tl.length; i++) {
         let taskObj = JSON.parse(tl[i]);
         if (taskObj.title === oldTaskName) {
@@ -67,10 +65,8 @@ export function editTask(oldTaskName){
             taskObj.priority = prio;
             taskObj.date = date;
             
-            // Update the task in the taskList
             tl[i] = JSON.stringify(taskObj);
             
-            // Save the updated project back to localStorage
             p.taskList = tl;
             localStorage.setItem(proj, JSON.stringify(p));
         }
